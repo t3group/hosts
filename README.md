@@ -22,12 +22,15 @@ Example Playbook
 ----------------
 
 1. 使用私有hosts文件，并根据inventory配置hostname
+```yaml
     - hosts: all
       roles:
          - role: hosts
            hosts_override_hosts_template: hosts
+```
 
 2. 通过定义playbook配置主机名
+```yaml
     - hosts: all
       roles:
          - role: hosts
@@ -36,3 +39,4 @@ Example Playbook
                  hostnames:
                      - server
                      - server.example.com
+```
