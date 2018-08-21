@@ -1,0 +1,16 @@
+---
+# defaults file for hosts
+hosts_ipv4_loopback_hosts:
+  address: 127.0.0.1
+  hostnames:
+    - localhost
+    - localhost.localdomain
+
+hosts_default_hosts:
+  - "{{ hosts_ipv4_loopback_hosts }}"
+
+hosts_additional_hosts: []
+
+hosts_all_hosts: "{{ hosts_default_hosts|union(hosts_additional_hosts) }}"
+
+hosts_file_group: root

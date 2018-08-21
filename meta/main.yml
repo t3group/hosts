@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: Evan Li
+  description: Manage the relevant host configuration name.
+  min_ansible_version: 2.5
+  platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+  categories:
+    - networking
+    - system
+
+dependencies: []
