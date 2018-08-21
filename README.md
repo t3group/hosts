@@ -1,53 +1,38 @@
 Hosts
 =========
 
-This role manages /etc/hosts and /etc/hostname. The files are managed with a
-template.
+Ansible Role 简单管理主机hosts文件和主机名配置。
 
 Role Variables
 --------------
 
-Each entry is described by a dictionary with the keys "address" which contains
-the IP address for the entry and "hosts" which is a list of hostnames. The host
-names are added in the same order so first one will be the canonical hostname.
+每一个记录都是有一个字典进行管理的，字段address，hostnames是一个list可以定义多个，
+一般情况下我们都习惯定义长短域名，为了满足更加复杂定制化需要针对hosts可以直接指定
+自己的hosts文件，替换字段: hosts_override_hosts_template 。
 
-The following describes what variables you can set. When "entry" is mentioned,
-it means the structure described in the last paragraph.
+关于其他字段的相信如下:
 
-hosts_ipv4_loopback_hosts: An entry for the IPv4 loopback address. Defaults to
-setting localhost.localdomain and localhost as hostnames.
+hosts_ipv4_loopback_hosts: 本地回环地址和主机名，主要作用于hosts。
 
-hosts_default_ipv4_hosts: An entry for default inventory IPv4 address. Defaults
-to inventory_hostname and inventory_hostname_short from ansible.
+hosts_additional_hosts: 我们自定义的主机列表。
 
-hosts_default_hosts: A list of entries that are set by default in the role.
-Contains the previous two entries by default.
-
-hosts_additional_hosts: A list of additional entries to put in the hosts file.
-Empty by default.
-
-hosts_all_hosts: List of all host entries. Just merges hosts_default_hosts and
-hosts_additional_hosts by default.
+hosts_override_hosts_template: 自定义的Hosts文件。
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+1. 使用私有hosts文件，并根据inventory配置hostname
+    - hosts: all
+      roles:
+         - role: hosts
+           hosts_override_hosts_template: hosts
 
-    - hosts: servers
+2. 通过定义playbook配置主机名
+    - hosts: all
       roles:
          - role: hosts
            hosts_additional_hosts:
                - address: 192.168.0.1
                  hostnames:
-                     - server.example.com
                      - server
-
-License
--------
-
-MIT/Simplified BSD license
-
-Author Information
-------------------
-Role created by Antti J. Salminen in 2014.
+                     - server.example.com
